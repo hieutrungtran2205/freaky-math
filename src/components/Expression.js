@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import '../App.css';
 // import useRandom from '../hooks/useRandom';
 
@@ -8,13 +8,15 @@ function Expression() {
     }
 
     const getRandomOperator = () => {
-        const operator = ['+', '-', '*', '/'];
+        const operator = ['+', '-', '*'];
         return operator[Math.floor(Math.random() * operator.length)]
     }
 
-    const [random, setRandom] = useState(0.5)
+    // const [random, setRandom] = useState(0.5)
 
-    const [score, setScore] = useState(-1)
+    const [score, setScore] = useState(0)
+    const [isTrue, setIsTrue] = useState(true)
+
     const op = getRandomOperator();
 
     const getResult = useCallback((num1, num2) => {
@@ -22,12 +24,12 @@ function Expression() {
     }, [op])
 
     const getRandomResult = useCallback((num1, num2) => {
-        console.log('random2', random);
+        const randomResult = Math.random() >= 0.5;
+        setIsTrue(randomResult);
         const result = getResult(num1, num2);
         const fakeResult = getRandomNumber(num1, num2);
-        console.log("getRandomResult", random);
-        return random >= 0.5 ? result : fakeResult;
-    }, [getResult, random])
+        return randomResult ? result : fakeResult;
+    }, [getResult])
 
 
     const [expression, setExpression] = useState('click True to start')
@@ -41,34 +43,32 @@ function Expression() {
     }, [getRandomResult, op])
 
     const onClickTrue = useCallback(() => {
-        if (random >= 0.5) {
-            setRandom(Math.random())
+        if (isTrue) {
             setExpression(getRandomExpression())
-            console.log("ex", expression);
             setScore(score => score + 1)
-            console.log("clickTrue", random);
         } else {
-            setRandom(0)
             setExpression("game over")
             setScore(0)
         }
-    }, [expression, getRandomExpression, random])
+    }, [getRandomExpression, isTrue])
     console.log("ex2", expression);
 
     const onClickFalse = useCallback(() => {
-        if (random < 0.5) {
+        if (!isTrue) {
             setExpression(getRandomExpression())
-            setRandom(Math.random())
-            console.log(random);
             setScore(score => score + 1)
 
         } else {
             setExpression("game over")
             setScore(0)
         }
-    }, [getRandomExpression, random])
+    }, [getRandomExpression, isTrue])
 
-    console.log("lastRandom", random);
+    
+    useEffect(() => {
+        console.log('avc');
+        setExpression(getRandomExpression())
+    }, [])
 
 
     return (
