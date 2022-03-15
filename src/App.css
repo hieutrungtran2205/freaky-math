@@ -1,15 +1,53 @@
-.App {
+.content {
   display: flex;
   justify-content: center;
-  width: 600px;
+  width: 500px;
   height: 100vh;
-  background-color: green;
   margin: 0 auto;
   position: relative;
   font-size: 24px;
 }
 
+.expression {
+  color: #fff;
+}
+
+.score {
+  position: absolute;
+  right: 16px;
+  color: #fff;
+}
+
+.highScore {
+  position: absolute;
+  bottom: 250px;
+  color: #fff;
+}
+
 .buttons {
   position: absolute;
   bottom: 50px;
+  display: flex;
+}
+
+.btn {
+  font-size: 32px;
+  padding: 50px;
+  margin: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn.true {
+  color: green;
+}
+
+.btn.false {
+  color: red;
+}
+
+.playAgain {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-100%);
 }
