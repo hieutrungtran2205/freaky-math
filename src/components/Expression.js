@@ -68,7 +68,6 @@ function Expression() {
             setExpression("game over")
             setScore(0)
             console.log("s", score);
-            setHighScore(score)
             setIsOver(true)
         }
     }, [getRandomExpression, isTrue, notRepeatColor, score])
@@ -81,7 +80,6 @@ function Expression() {
         } else {
             setExpression("game over")
             setScore(0)
-            setHighScore(score)
             setIsOver(true)
         }
     }, [getRandomExpression, isTrue, notRepeatColor, score])
@@ -95,6 +93,7 @@ function Expression() {
     const playAgain = () => {
         setExpression(getRandomExpression())
         setScore(0)
+        setHighScore(JSON.parse(localStorage.getItem('highScore')))
         setIsOver(false)
     }
 
