@@ -135,10 +135,18 @@ function Expression() {
             }
 
             <span className='highScore'>High Score: {JSON.parse(localStorage.getItem('highScore'))}</span>
-            <div className='buttons'>
-                <button className='btn true' onClick={onClickTrue}>True</button>
-                <button className='btn false' onClick={onClickFalse}>False</button>
-            </div>
+            {isOver
+                ?
+                <div className='buttons'>
+                    <button className='btn true' disabled>True</button>
+                    <button className='btn false' disabled>False</button>
+                </div>
+                :
+                <div className='buttons'>
+                    <button className='btn true' onClick={onClickTrue}>True</button>
+                    <button className='btn false' onClick={onClickFalse}>False</button>
+                </div>
+            }
         </div>
     );
 }
